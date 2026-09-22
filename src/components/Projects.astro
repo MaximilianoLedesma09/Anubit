@@ -1,0 +1,100 @@
+<section id="proyectos" class="projects">
+  <div class="circuit-overlay"></div>
+  <div>
+    <h2 class="section-title">Explora nuestros proyectos destacados</h2>
+    
+    <div class="projects-showcase">
+      <div class="projects-slider">
+        <div class="slider-container">
+          <div class="project-logo active" data-index="0" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <span>CLUB PG</span>
+          </div>
+          <div class="project-logo" data-index="1" style="background: linear-gradient(135deg, #2d5a27 0%, #4a9c3a 100%);">
+            <span>WOLF GYM</span>
+          </div>
+          <div class="project-logo" data-index="2" style="background: #fff; color: #000;">
+            <span>adidas</span>
+          </div>
+        </div>
+        <div class="slider-dots">
+          <div class="dot active" data-index="0"></div>
+          <div class="dot" data-index="1"></div>
+          <div class="dot" data-index="2"></div>
+        </div>
+      </div>
+      
+      <div class="project-info">
+        <h3 id="project-name">CLUB PG</h3>
+        <p id="project-desc">El club PG es una aplicación web responsive, se trata de una red social profesional para ser utilizada en el ámbito laboral y empresarial, exclusiva para programadores y trabajadores de tecnología de la información (IT).</p>
+        <div class="project-preview">
+          <img src="/images/project1.png" alt="Vista previa Club PG" id="project-image" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="projects-footer">
+      <p>Trabajamos estrechamente con nuestros clientes para desarrollar soluciones adaptadas a sus necesidades.</p>
+      <a class="btn btn-gold" href="#contacto">Contactanos</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const projects = [
+    {
+      name: 'CLUB PG',
+      desc: 'El club PG es una aplicación web responsive, se trata de una red social profesional para ser utilizada en el ámbito laboral y empresarial, exclusiva para programadores y trabajadores de tecnología de la información (IT).',
+      image: '/images/project1.png'
+    },
+    {
+      name: 'WOLF GYM',
+      desc: 'El proyecto WolfGym es una aplicación de escritorio, está diseñado para la gestión interna de gimnasios, adaptado específicamente a las necesidades de cada instalación.',
+      image: '/images/project2.png'
+    },
+    {
+      name: 'ADIDAS',
+      desc: 'Proyecto de e-commerce para Adidas, implementando una plataforma de venta online con integración de sistemas de pago y gestión de inventario en tiempo real.',
+      image: '/images/project3.png'
+    }
+  ];
+
+  let currentIndex = 0;
+  const logos = document.querySelectorAll('.project-logo');
+  const dots = document.querySelectorAll('.dot');
+  const nameEl = document.getElementById('project-name');
+  const descEl = document.getElementById('project-desc');
+  const imageEl = document.getElementById('project-image');
+
+  function updateProject(index) {
+    currentIndex = index;
+    
+    logos.forEach((logo, i) => {
+      logo.classList.toggle('active', i === index);
+      logo.style.zIndex = i === index ? 10 : 5 - Math.abs(i - index);
+      logo.style.transform = i === index ? 'scale(1.1)' : 'scale(1)';
+    });
+    
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    
+    nameEl.textContent = projects[index].name;
+    descEl.textContent = projects[index].desc;
+    imageEl.src = projects[index].image;
+    imageEl.alt = `Vista previa ${projects[index].name}`;
+  }
+
+  logos.forEach((logo, index) => {
+    logo.addEventListener('click', () => updateProject(index));
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => updateProject(index));
+  });
+
+  // Auto-advance
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % projects.length;
+    updateProject(currentIndex);
+  }, 5000);
+</script>
